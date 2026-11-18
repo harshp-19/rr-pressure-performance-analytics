@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Source-code demonstration of the Rajasthan Royals pressure-performance dashboard.">
+<title>RR Pressure Performance Analytics</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="styles.css">
+<script defer src="demo-data.js"></script>
+<script defer src="dashboard.js"></script>
+</head>
+<body>
+<a class="skip" href="#overview">Skip to dashboard</a>
+<header class="masthead"><div class="shell head-inner"><span class="monogram" aria-hidden="true">RR</span><strong>Rajasthan Royals</strong><span class="round">SupeRR Selector · Round 1</span></div></header>
+<nav aria-label="Dashboard sections"><div class="shell nav-inner">
+<a href="#overview">Overview</a><a href="#batters">Batters</a><a href="#bowlers">Bowlers</a><a href="#method">Methodology</a><a href="#uncertainty">Uncertainty</a><a href="#recruitment">Recruitment</a><a href="#sources">Sources</a>
+</div></nav>
+<main class="shell">
+<p class="note" role="note"><strong>Synthetic demo.</strong> All names, scores, and results below are fictional examples for testing the interface.</p>
+<section id="overview" tabindex="-1" aria-labelledby="title">
+ <div class="hero"><div class="hero-copy"><h1 id="title">RR Pressure<br>Performance Analytics</h1><p>SupeRR Selector Season 2 | IPL 2027 Auction Intelligence</p></div>
+ <div class="pressure"><strong>Top 20%</strong><span>of leverage in second-innings chases, with pre-ball win probability between 5% and 95%</span></div></div>
+ <div class="metrics" id="metrics"></div>
+ <blockquote>Historical rankings, bootstrap frequency, and repeatability answer different questions. Recruitment decisions also depend on role fit and confirmed availability.</blockquote>
+ <div class="pair" id="leaders"></div>
+</section>
+<section id="batters" aria-labelledby="batters-title"><p class="eyebrow">Performance rankings</p><h2 id="batters-title">Top 10 batters</h2><p>Compare illustrative batting scores, sample sizes and bootstrap frequencies.</p><div id="batters-data"></div></section>
+<section id="bowlers" aria-labelledby="bowlers-title"><p class="eyebrow">Performance rankings</p><h2 id="bowlers-title">Top 10 bowlers</h2><p>Compare illustrative bowling scores, sample sizes and bootstrap frequencies.</p><div id="bowlers-data"></div></section>
+<section id="method" aria-labelledby="method-title">
+ <h2 id="method-title">Methodology</h2>
+ <div class="panel method-grid">
+ <article><h3>Estimate win probability</h3><p>Logistic regression estimates the batting side’s chance of winning before each ball from the match state, including runs needed, balls left, wickets in hand and run rates. Five match-grouped folds keep each match out of the training data used to predict it.</p></article>
+ <article><h3>Identify high-leverage chases</h3><p>A second model predicts the size of the win-probability swing using pre-ball information. The primary definition uses the top 20% of second-innings leverage and a 5–95% win-probability window. Chases have a known target and a better-performing model. First-innings leverage mainly flagged early uncertainty.</p></article>
+ <article><h3>Score player performance</h3><p>Situation-adjusted run value accounts for runs and wickets relative to expectations. The composite combines situational run value, leverage-weighted chase value, performance relative to ordinary balls, and the share of positive innings or spells.</p></article>
+ <article><h3>Account for sample size</h3><p>Small pressure samples are pulled toward the value predicted by the player’s ordinary-ball record. The other components shrink toward pool averages. Eligibility requires at least 50 pressure balls and 8 qualifying innings for batters, or 60 balls and 8 qualifying spells for bowlers. A qualifying innings or spell contains at least six pressure balls.</p></article>
+ <article><h3>Resample matches</h3><p>The audit reranked players across 400 match-level bootstrap samples. Top 10 frequency is the share of resamples in which the player ranked in the top 10. Ineligible resamples count as misses.</p></article>
+ <article><h3>Test alternative definitions</h3><p>The audit varied leverage cutoffs, innings, phase, competition, eligibility, weights, shrinkage and wicket credit. Selection changes across definitions, particularly with competition and phase restrictions.</p></article>
+ </div>
+ <div id="model-metrics" class="metrics"></div>
+ <div class="panel sensitivity"><div class="panel-head"><h3>Sensitivity to analysis choices</h3><label>Role <select id="sensitivity-role"><option value="batters">Batters</option><option value="bowlers">Bowlers</option></select></label></div><p>Top 10 overlap counts the original selections retained under each alternative. Rank correlation covers players eligible in both specifications.</p><div id="sensitivity-data"></div></div>
+</section>
+<section id="uncertainty" aria-labelledby="uncertainty-title">
+ <h2 id="uncertainty-title">Repeatability and uncertainty</h2>
+ <p>Split-half correlation illustrates how performance carries across different sets of matches.</p>
+ <div class="metrics repeat" id="repeatability"></div>
+ <dl class="panel distinctions">
+ <div><dt>Historical performance ranking</dt><dd>The order of composite scores on the supplied match sample.</dd></div>
+ <div><dt>Bootstrap Top 10 frequency</dt><dd>How often a player ranks in the top 10 after resampling matches. It measures ranking stability within the dataset.</dd></div>
+ <div><dt>Actual repeatability</dt><dd>Whether player results carry over across different sets of matches. The example values here are illustrative.</dd></div>
+ </dl>
+ <aside class="note"><strong>Interpreting the metrics</strong><p>Small samples and a concentration of opportunities in particular phases can limit how broadly a ranking applies.</p></aside>
+</section>
+<section id="recruitment" aria-labelledby="recruitment-title">
+ <h2 id="recruitment-title">RR recruitment shortlist</h2>
+ <p>Performance ranks describe the supplied chases. Auction priorities depend on role fit and confirmed squad gaps, registration, availability and medical clearance.</p>
+ <aside class="note"><strong>Squad context</strong><p>The fictional shortlist illustrates how role fit and confirmation of open squad slots guide decisions.</p></aside>
+ <div id="shortlist"></div>
+</section>
+<section id="sources" aria-labelledby="sources-title">
+ <h2 id="sources-title">Availability and sources</h2>
+ <p>Example entries illustrate how the dashboard identifies verified, reported and unverified information.</p>
+ <div id="status-data"></div>
+ <details class="panel source-register"><summary>Example source register</summary><div id="source-data"></div></details>
+</section>
+<noscript><p class="note">Enable JavaScript to display the example rankings and interactive tables.</p></noscript>
+</main>
+<footer><div class="shell">Rajasthan Royals · SupeRR Selector Season 2 · Round 1</div></footer>
+</body>
+</html>

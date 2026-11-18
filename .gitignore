@@ -1,0 +1,56 @@
+# Private inputs, analysis outputs, and submission artifacts
+/Data Pack/
+/data/
+/analytics/
+/backups/
+/docs/
+/models/
+/reports/
+/scripts/
+/tests/
+/private/
+/audit-data.js
+audit-data.*
+ratings*
+*ball_by_ball*
+*shortlist*.csv
+*.csv
+*.tsv
+*.parquet
+*.xlsx
+*.zip
+*.7z
+*.tar
+*.tgz
+*.ppt
+*.pptx
+*.pdf
+*.docx
+
+# Credentials and host-specific configuration
+.env
+.env.*
+*.key
+*.pem
+credentials.*
+secrets.*
+.openai/
+.rr-site-publish/
+.sites-checkout/
+
+# Generated files and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+node_modules/
+dist/
+build/
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
